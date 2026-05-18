@@ -1,7 +1,8 @@
-```markdown
 <p align="center">
   <img src="CharisBelleLogo.webp" alt="Charis Belle Logo" width="200" />
 </p>
+
+```markdown
 
 # Charis Belle – Beauty Expert CRM & Automation Platform
 
