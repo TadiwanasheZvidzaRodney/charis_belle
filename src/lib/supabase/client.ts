@@ -1,6 +1,11 @@
 import { createBrowserClient } from '@supabase/ssr'
 import type { Database } from './types'
 
+// Support both new publishable key and classic anon key
+const SUPABASE_KEY =
+  process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY ||
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+
 /**
  * Browser (client-component) Supabase client.
  *
@@ -17,6 +22,6 @@ import type { Database } from './types'
 export function createClient() {
   return createBrowserClient<Database>(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+    SUPABASE_KEY
   )
 }

@@ -1,6 +1,7 @@
 'use client'
 
-import { useActionState } from 'react'
+import { useActionState, useEffect } from 'react'
+import { toast } from 'sonner'
 import { sendCampaignAction, type SendCampaignState } from './actions'
 import { SubmitButton } from '@/components/SubmitButton'
 
@@ -31,6 +32,16 @@ export function UserTableWithSend({ profiles, campaigns }: Props) {
     sendCampaignAction,
     null
   )
+
+  // Show toast notifications when state changes
+  useEffect(() => {
+    if (state?.success) {
+      toast.success(state.success)
+    }
+    if (state?.error) {
+      toast.error(state.error)
+    }
+  }, [state])
 
   const activeCampaigns = campaigns.filter((c) => c.is_active)
 

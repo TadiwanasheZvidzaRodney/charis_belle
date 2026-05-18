@@ -1,6 +1,7 @@
 'use client'
 
-import { useActionState } from 'react'
+import { useActionState, useEffect } from 'react'
+import { toast } from 'sonner'
 import { updateProfileAction, type ProfileState } from './actions'
 import { SubmitButton } from '@/components/SubmitButton'
 
@@ -19,6 +20,16 @@ export function ProfileForm({ profile }: { profile: Profile }) {
     updateProfileAction,
     null
   )
+
+  // Show toast notifications
+  useEffect(() => {
+    if (state?.success) {
+      toast.success(state.success)
+    }
+    if (state?.error) {
+      toast.error(state.error)
+    }
+  }, [state])
 
   const channel = profile.preferences?.channel ?? 'email'
   const marketingOptIn = profile.preferences?.marketing_opt_in ?? true
