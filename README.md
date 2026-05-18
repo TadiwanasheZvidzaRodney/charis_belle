@@ -1,4 +1,8 @@
 ```markdown
+<p align="center">
+  <img src="CharisBelleLogo.webp" alt="Charis Belle Logo" width="200" />
+</p>
+
 # Charis Belle – Beauty Expert CRM & Automation Platform
 
 A full-stack platform for Charis Belle to collect client details, manage profiles, and send automated birthday messages and reminders.
@@ -300,14 +304,6 @@ Deploy this function and set the cron schedule in your Supabase dashboard.
 - Admin credentials (set a strong password and notify Charis)
 - A short Loom video showing how to add a campaign and how the birthday email is triggered
 - Optional: email templates (birthday + “book your next appointment” reminder)
-
----
-
-## 🤖 How to Use This with an AI Coding Assistant
-1. Copy this entire README into your project root.
-2. Open your AI assistant (ChatGPT, Cursor, Copilot) and say:
-   > “I’m building this project according to the README. Please help me implement task 1.1: set up Supabase client helpers for Next.js.”
-3. The assistant will understand the context, tech stack, and next steps without back‑and‑forth.
 
 ---
 
