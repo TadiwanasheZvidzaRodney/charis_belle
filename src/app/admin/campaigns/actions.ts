@@ -10,7 +10,7 @@ export type CampaignState = {
 } | null
 
 /**
- * Create a new campaign.
+ * Create a new campaign (email, SMS, or both).
  */
 export async function createCampaignAction(
   _prev: CampaignState,
@@ -18,15 +18,31 @@ export async function createCampaignAction(
 ): Promise<CampaignState> {
   const name = String(formData.get('name') ?? '').trim()
   const type = String(formData.get('type') ?? '') as 'birthday' | 'reminder'
+  const channel = String(formData.get('channel') ?? 'email') as 'email' | 'sms' | 'both'
   const subject = String(formData.get('subject') ?? '').trim()
   const body_html = String(formData.get('body_html') ?? '').trim()
+  const sms_body = String(formData.get('sms_body') ?? '').trim()
 
-  if (!name || !type || !subject || !body_html) {
-    return { error: 'All fields are required.' }
+  if (!name || !type || !channel) {
+    return { error: 'Name, type, and channel are required.' }
   }
 
   if (!['birthday', 'reminder'].includes(type)) {
     return { error: 'Invalid campaign type.' }
+  }
+
+  if (!['email', 'sms', 'both'].includes(channel)) {
+    return { error: 'Invalid channel.' }
+  }
+
+  // Validate email fields if email channel
+  if ((channel === 'email' || channel === 'both') && (!subject || !body_html)) {
+    return { error: 'Email subject and body are required for email campaigns.' }
+  }
+
+  // Validate SMS fields if SMS channel
+  if ((channel === 'sms' || channel === 'both') && !sms_body) {
+    return { error: 'SMS body is required for SMS campaigns.' }
   }
 
   const supabase = createAdminClient()
@@ -34,8 +50,10 @@ export async function createCampaignAction(
   const { error } = await supabase.from('campaigns').insert({
     name,
     type,
-    subject,
-    body_html,
+    channel,
+    subject: subject || null,
+    body_html: body_html || null,
+    sms_body: sms_body || null,
     is_active: true,
   })
 

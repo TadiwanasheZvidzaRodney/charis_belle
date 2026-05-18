@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { useActionState } from 'react'
+import { useActionState, useState } from 'react'
 import { createCampaignAction, type CampaignState } from '../actions'
 import { SubmitButton } from '@/components/SubmitButton'
 
@@ -13,6 +13,10 @@ export default function NewCampaignPage() {
     createCampaignAction,
     null
   )
+  const [channel, setChannel] = useState('email')
+
+  const showEmail = channel === 'email' || channel === 'both'
+  const showSMS = channel === 'sms' || channel === 'both'
 
   return (
     <div className="mx-auto max-w-2xl">
@@ -25,7 +29,7 @@ export default function NewCampaignPage() {
 
       <h1 className="mt-4 font-serif text-3xl text-gray-900">New Campaign</h1>
       <p className="mt-1 text-gray-600">
-        Create a birthday or reminder email template.
+        Create a birthday or reminder campaign (email, SMS, or both).
       </p>
 
       <form action={formAction} className="mt-8 space-y-6">
@@ -43,50 +47,102 @@ export default function NewCampaignPage() {
           />
         </div>
 
-        <div>
-          <label htmlFor="type" className="mb-1 block text-sm font-medium text-gray-700">
-            Type
-          </label>
-          <select id="type" name="type" required className={inputClass}>
-            <option value="birthday">Birthday</option>
-            <option value="reminder">Reminder</option>
-          </select>
-          <p className="mt-1 text-xs text-gray-500">
-            Birthday campaigns are sent automatically at 8 AM on user birthdays.
-          </p>
+        <div className="grid grid-cols-2 gap-4">
+          <div>
+            <label htmlFor="type" className="mb-1 block text-sm font-medium text-gray-700">
+              Type
+            </label>
+            <select id="type" name="type" required className={inputClass}>
+              <option value="birthday">Birthday</option>
+              <option value="reminder">Reminder</option>
+            </select>
+          </div>
+
+          <div>
+            <label htmlFor="channel" className="mb-1 block text-sm font-medium text-gray-700">
+              Channel
+            </label>
+            <select 
+              id="channel" 
+              name="channel" 
+              required 
+              className={inputClass}
+              value={channel}
+              onChange={(e) => setChannel(e.target.value)}
+            >
+              <option value="email">📧 Email only</option>
+              <option value="sms">📱 SMS only</option>
+              <option value="both">📧📱 Both</option>
+            </select>
+          </div>
         </div>
 
-        <div>
-          <label htmlFor="subject" className="mb-1 block text-sm font-medium text-gray-700">
-            Email subject
-          </label>
-          <input
-            id="subject"
-            name="subject"
-            type="text"
-            required
-            placeholder="e.g. 🎂 Happy Birthday from Charis Belle!"
-            className={inputClass}
-          />
-        </div>
+        <p className="text-xs text-gray-500">
+          Birthday campaigns are sent automatically at 8 AM on user birthdays.
+        </p>
 
-        <div>
-          <label htmlFor="body_html" className="mb-1 block text-sm font-medium text-gray-700">
-            Email body (HTML)
-          </label>
-          <textarea
-            id="body_html"
-            name="body_html"
-            required
-            rows={10}
-            placeholder={`<h1>Happy Birthday, {{full_name}}!</h1>\n<p>Wishing you a wonderful day filled with joy...</p>`}
-            className={inputClass + ' font-mono'}
-          />
-          <p className="mt-1 text-xs text-gray-500">
-            Use <code className="rounded bg-gray-100 px-1">{'{{full_name}}'}</code> to
-            insert the recipient's name.
-          </p>
-        </div>
+        {/* Email Fields */}
+        {showEmail && (
+          <fieldset className="space-y-4 rounded-lg border border-gray-200 p-4">
+            <legend className="px-2 text-sm font-medium text-gray-700">📧 Email Content</legend>
+            
+            <div>
+              <label htmlFor="subject" className="mb-1 block text-sm font-medium text-gray-700">
+                Subject
+              </label>
+              <input
+                id="subject"
+                name="subject"
+                type="text"
+                required={showEmail}
+                placeholder="e.g. 🎂 Happy Birthday from Charis Belle!"
+                className={inputClass}
+              />
+            </div>
+
+            <div>
+              <label htmlFor="body_html" className="mb-1 block text-sm font-medium text-gray-700">
+                Body (HTML)
+              </label>
+              <textarea
+                id="body_html"
+                name="body_html"
+                required={showEmail}
+                rows={8}
+                placeholder={`<h1>Happy Birthday, {{full_name}}!</h1>\n<p>Wishing you a wonderful day filled with joy...</p>`}
+                className={inputClass + ' font-mono'}
+              />
+              <p className="mt-1 text-xs text-gray-500">
+                Use <code className="rounded bg-gray-100 px-1">{'{{full_name}}'}</code> to insert the recipient's name.
+              </p>
+            </div>
+          </fieldset>
+        )}
+
+        {/* SMS Fields */}
+        {showSMS && (
+          <fieldset className="space-y-4 rounded-lg border border-gray-200 p-4">
+            <legend className="px-2 text-sm font-medium text-gray-700">📱 SMS Content</legend>
+            
+            <div>
+              <label htmlFor="sms_body" className="mb-1 block text-sm font-medium text-gray-700">
+                Message (max 160 chars recommended)
+              </label>
+              <textarea
+                id="sms_body"
+                name="sms_body"
+                required={showSMS}
+                rows={3}
+                maxLength={320}
+                placeholder="🎂 Happy Birthday {{full_name}}! Enjoy 20% off your next visit at Charis Belle. Book: yoursite.com/book"
+                className={inputClass}
+              />
+              <p className="mt-1 text-xs text-gray-500">
+                Keep it short! SMS messages over 160 characters may be split into multiple messages.
+              </p>
+            </div>
+          </fieldset>
+        )}
 
         {state?.error && (
           <p
