@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import { useSearchParams } from 'next/navigation'
 import { useActionState } from 'react'
 import { loginAction, type AuthState } from '../actions'
 import { SubmitButton } from '@/components/SubmitButton'
@@ -13,6 +14,7 @@ export default function LoginPage() {
     loginAction,
     null
   )
+  const redirectTo = useSearchParams().get('redirectTo') ?? ''
 
   return (
     <div>
@@ -22,6 +24,7 @@ export default function LoginPage() {
       </p>
 
       <form action={formAction} className="space-y-4">
+        <input type="hidden" name="redirectTo" value={redirectTo} />
         <div>
           <label htmlFor="email" className="mb-1 block text-sm font-medium text-gray-700">
             Email

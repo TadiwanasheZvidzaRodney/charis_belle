@@ -21,6 +21,7 @@ export async function loginAction(
 ): Promise<AuthState> {
   const email = String(formData.get('email') ?? '').trim()
   const password = String(formData.get('password') ?? '')
+  const redirectToRaw = String(formData.get('redirectTo') ?? '')
 
   if (!email || !password) {
     return { error: 'Email and password are required.' }
@@ -33,8 +34,14 @@ export async function loginAction(
     return { error: error.message }
   }
 
+  // Only allow same-origin redirects (protect against open-redirect attacks)
+  const redirectTo =
+    redirectToRaw.startsWith('/') && !redirectToRaw.startsWith('//')
+      ? redirectToRaw
+      : '/profile'
+
   revalidatePath('/', 'layout')
-  redirect('/profile')
+  redirect(redirectTo)
 }
 
 /**
