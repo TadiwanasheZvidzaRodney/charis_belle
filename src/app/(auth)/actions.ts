@@ -95,13 +95,3 @@ export async function signupAction(
   revalidatePath('/', 'layout')
   redirect('/profile')
 }
-
-/**
- * Sign the current user out (used by the navbar / logout button).
- */
-export async function logoutAction() {
-  const supabase = await createClient()
-  await supabase.auth.signOut()
-  revalidatePath('/', 'layout')
-  redirect('/login')
-}
