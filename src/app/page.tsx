@@ -260,7 +260,7 @@ export default async function HomePage() {
             </div>
 
             <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {/* Gallery images */}
+              {/* Gallery images - first 6 */}
               {[
                 { src: "/gallery/card1.webp", alt: "Nail art design 1" },
                 { src: "/gallery/card2.webp", alt: "Nail art design 2" },
@@ -268,10 +268,6 @@ export default async function HomePage() {
                 { src: "/gallery/card4.webp", alt: "Nail art design 3" },
                 { src: "/gallery/card5.webp", alt: "Makeup look 2" },
                 { src: "/gallery/card6.webp", alt: "Nail art design 4" },
-                { src: "/gallery/card7.webp", alt: "Makeup look 3" },
-                { src: "/gallery/card8.webp", alt: "Nail art design 5" },
-                { src: "/gallery/card9.webp", alt: "Makeup look 4" },
-                { src: "/gallery/card10.webp", alt: "Nail art design 6" },
               ].map((img, i) => (
                 <div
                   key={i}
@@ -286,6 +282,16 @@ export default async function HomePage() {
                   />
                 </div>
               ))}
+            </div>
+
+            <div className="mt-8 text-center">
+              <Link
+                href="/gallery"
+                className="inline-flex items-center gap-2 rounded-full border-2 border-[#247245] px-8 py-3 text-base font-medium text-[#247245] transition hover:bg-[#247245] hover:text-white"
+              >
+                View More
+                <span>→</span>
+              </Link>
             </div>
 
             <div className="mt-12 text-center">
@@ -391,7 +397,7 @@ export default async function HomePage() {
               />
               <TestimonialCard
                 quote="Best gel manicure I've ever had! The nail art is always on point and lasts forever. This is my go-to spot now!"
-                author="Jessica T."
+                author="Tadiwa Z."
                 service="Gel Manicure"
               />
             </div>
@@ -421,7 +427,7 @@ export default async function HomePage() {
                     </div>
                     <div>
                       <p className="font-medium text-gray-900">Location</p>
-                      <p className="text-gray-600">123 Beauty Lane, Suite 100<br />Your City, State 12345</p>
+                      <p className="text-gray-600">Second Street & George Silundika<br />Harare</p>
                     </div>
                   </div>
                   <div className="flex items-start gap-4">
@@ -430,7 +436,7 @@ export default async function HomePage() {
                     </div>
                     <div>
                       <p className="font-medium text-gray-900">Phone</p>
-                      <p className="text-gray-600">(555) 123-4567</p>
+                      <p className="text-gray-600">+263 71 922 7377</p>
                     </div>
                   </div>
                   <div className="flex items-start gap-4">
@@ -459,7 +465,7 @@ export default async function HomePage() {
 
                 <div className="mt-8 flex gap-4">
                   <a
-                    href="https://instagram.com"
+                    href="https://instagram.com/charis_belle_expert/"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex h-10 w-10 items-center justify-center rounded-full bg-gray-100 text-gray-600 transition hover:bg-[#247245] hover:text-white"
@@ -477,7 +483,7 @@ export default async function HomePage() {
                     📘
                   </a>
                   <a
-                    href="https://wa.me/15551234567"
+                    href="https://wa.me/263719227377"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex h-10 w-10 items-center justify-center rounded-full bg-gray-100 text-gray-600 transition hover:bg-[#247245] hover:text-white"
@@ -502,7 +508,7 @@ export default async function HomePage() {
                       name="name"
                       required
                       className="mt-1 w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-gray-900 placeholder:text-gray-400 focus:border-[#247245] focus:outline-none focus:ring-2 focus:ring-[#247245]/20"
-                      placeholder="Jane Doe"
+                      placeholder="Nyasha Charis"
                     />
                   </div>
                   <div>
@@ -515,7 +521,7 @@ export default async function HomePage() {
                       name="email"
                       required
                       className="mt-1 w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-gray-900 placeholder:text-gray-400 focus:border-[#247245] focus:outline-none focus:ring-2 focus:ring-[#247245]/20"
-                      placeholder="jane@example.com"
+                      placeholder="charis@gmail.com"
                     />
                   </div>
                   <div>
@@ -527,7 +533,7 @@ export default async function HomePage() {
                       id="phone"
                       name="phone"
                       className="mt-1 w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-gray-900 placeholder:text-gray-400 focus:border-[#247245] focus:outline-none focus:ring-2 focus:ring-[#247245]/20"
-                      placeholder="(555) 123-4567"
+                      placeholder="+263 71 922 7377"
                     />
                   </div>
                   <div>
