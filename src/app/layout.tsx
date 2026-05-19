@@ -19,14 +19,20 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  title: "Charis Belle – Beauty Expert",
+  title: "Charis Belle | Nails & Makeup Artist",
   description:
-    "Join Charis Belle for personalized beauty services, birthday treats, and exclusive reminders. Sign up today!",
-  keywords: ["beauty", "skincare", "birthday", "salon", "Charis Belle"],
+    "Premium nail art, makeup artistry, and beauty services in Harare. Acrylic nails, gel manicures, bridal makeup, and more. Book your appointment today!",
+  keywords: ["nails", "makeup", "nail art", "bridal makeup", "beauty", "salon", "Harare", "Charis Belle"],
+  icons: {
+    icon: "/CharisBelleLogo.webp",
+    shortcut: "/CharisBelleLogo.webp",
+    apple: "/CharisBelleLogo.webp",
+  },
   openGraph: {
-    title: "Charis Belle – Beauty Expert",
-    description: "Personalized beauty services and birthday treats.",
+    title: "Charis Belle | Nails & Makeup Artist",
+    description: "Premium nail art and makeup services in Harare. Book your appointment today!",
     type: "website",
+    images: ["/CharisBelleLogo.webp"],
   },
 };
 

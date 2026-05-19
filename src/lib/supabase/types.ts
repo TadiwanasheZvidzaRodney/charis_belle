@@ -55,8 +55,10 @@ export type Database = {
           id: string
           name: string
           type: 'birthday' | 'reminder'
-          subject: string
-          body_html: string
+          channel: 'email' | 'sms' | 'both'
+          subject: string | null
+          body_html: string | null
+          sms_body: string | null
           is_active: boolean
           created_at: string
         }
@@ -64,8 +66,10 @@ export type Database = {
           id?: string
           name: string
           type: 'birthday' | 'reminder'
-          subject: string
-          body_html: string
+          channel?: 'email' | 'sms' | 'both'
+          subject?: string | null
+          body_html?: string | null
+          sms_body?: string | null
           is_active?: boolean
           created_at?: string
         }
@@ -73,8 +77,10 @@ export type Database = {
           id?: string
           name?: string
           type?: 'birthday' | 'reminder'
-          subject?: string
-          body_html?: string
+          channel?: 'email' | 'sms' | 'both'
+          subject?: string | null
+          body_html?: string | null
+          sms_body?: string | null
           is_active?: boolean
           created_at?: string
         }
@@ -85,22 +91,28 @@ export type Database = {
           id: string
           user_id: string | null
           campaign_id: string | null
+          channel: 'email' | 'sms'
           sent_at: string
           status: 'sent' | 'failed'
+          message_id: string | null
         }
         Insert: {
           id?: string
           user_id?: string | null
           campaign_id?: string | null
+          channel?: 'email' | 'sms'
           sent_at?: string
           status: 'sent' | 'failed'
+          message_id?: string | null
         }
         Update: {
           id?: string
           user_id?: string | null
           campaign_id?: string | null
+          channel?: 'email' | 'sms'
           sent_at?: string
           status?: 'sent' | 'failed'
+          message_id?: string | null
         }
         Relationships: [
           {
