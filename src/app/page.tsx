@@ -260,15 +260,26 @@ export default async function HomePage() {
             </div>
 
             <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {/* Gallery placeholders - replace with actual images */}
-              {[1, 2, 3, 4, 5, 6].map((i) => (
+              {/* Gallery images */}
+              {[
+                { src: "/gallery/card1.webp", alt: "Nail art design 1" },
+                { src: "/gallery/card2.webp", alt: "Nail art design 2" },
+                { src: "/gallery/card3.webp", alt: "Makeup look 1" },
+                { src: "/gallery/card4.webp", alt: "Nail art design 3" },
+                { src: "/gallery/card5.webp", alt: "Makeup look 2" },
+                { src: "/gallery/card6.webp", alt: "Nail art design 4" },
+                { src: "/gallery/card7.webp", alt: "Makeup look 3" },
+                { src: "/gallery/card8.webp", alt: "Nail art design 5" },
+                { src: "/gallery/card9.webp", alt: "Makeup look 4" },
+                { src: "/gallery/card10.webp", alt: "Nail art design 6" },
+              ].map((img, i) => (
                 <div
                   key={i}
                   className="group aspect-square overflow-hidden rounded-2xl bg-white shadow-md transition hover:shadow-xl"
                 >
                   <Image
-                    src="/CharisBelleLogo.webp"
-                    alt={`Gallery image ${i}`}
+                    src={img.src}
+                    alt={img.alt}
                     width={400}
                     height={400}
                     className="h-full w-full object-cover transition duration-300 group-hover:scale-105"
@@ -281,12 +292,12 @@ export default async function HomePage() {
               <p className="text-gray-600">
                 Follow us on Instagram for more inspiration{" "}
                 <a
-                  href="https://instagram.com"
+                  href="https://instagram.com/charis_belle_expert/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="font-medium text-[#247245] hover:underline"
                 >
-                  @charisbellebeauty
+                  @charis_belle_expert
                 </a>
               </p>
             </div>
@@ -630,9 +641,9 @@ export default async function HomePage() {
             <div>
               <h4 className="font-medium">Contact</h4>
               <ul className="mt-4 space-y-2 text-sm text-gray-400">
-                <li>123 Beauty Lane</li>
-                <li>Your City, State 12345</li>
-                <li>(555) 123-4567</li>
+                <li>Second Street & George Silundika</li>
+                <li>Harare</li>
+                <li>+263 71 922 7377</li>
                 <li>hello@charisbelle.com</li>
               </ul>
             </div>
