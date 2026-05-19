@@ -1,7 +1,28 @@
 import Image from "next/image";
 import Link from "next/link";
+import { createClient } from "@/lib/supabase/server";
 
-export default function HomePage() {
+export default async function HomePage() {
+  const supabase = await createClient();
+  
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  let profile = null;
+  if (user) {
+    const { data } = await supabase
+      .from("profiles")
+      .select("full_name, role")
+      .eq("id", user.id)
+      .maybeSingle();
+    profile = data;
+  }
+
+  const isLoggedIn = !!user;
+  const isAdmin = profile?.role === "admin";
+  const displayName = profile?.full_name || user?.email?.split("@")[0] || "Guest";
+
   return (
     <div className="flex min-h-screen flex-col bg-[#FAEDCD]">
       {/* Header */}
@@ -22,18 +43,46 @@ export default function HomePage() {
           </Link>
 
           <nav className="flex items-center gap-4">
-            <Link
-              href="/login"
-              className="text-sm font-medium text-gray-700 hover:text-[#247245] transition"
-            >
-              Log in
-            </Link>
-            <Link
-              href="/signup"
-              className="rounded-full bg-[#D4A373] px-5 py-2 text-sm font-medium text-white shadow-sm transition hover:bg-[#c08f5e]"
-            >
-              Sign up
-            </Link>
+            {isLoggedIn ? (
+              <>
+                {isAdmin && (
+                  <Link
+                    href="/admin/dashboard"
+                    className="text-sm font-medium text-[#247245] hover:underline"
+                  >
+                    Admin
+                  </Link>
+                )}
+                <Link
+                  href="/profile"
+                  className="flex items-center gap-2 text-sm font-medium text-gray-700 hover:text-[#247245] transition"
+                >
+                  <span className="hidden sm:inline">👋</span>
+                  <span>{displayName}</span>
+                </Link>
+                <Link
+                  href="/profile"
+                  className="rounded-full bg-[#D4A373] px-5 py-2 text-sm font-medium text-white shadow-sm transition hover:bg-[#c08f5e]"
+                >
+                  My Profile
+                </Link>
+              </>
+            ) : (
+              <>
+                <Link
+                  href="/login"
+                  className="text-sm font-medium text-gray-700 hover:text-[#247245] transition"
+                >
+                  Log in
+                </Link>
+                <Link
+                  href="/signup"
+                  className="rounded-full bg-[#D4A373] px-5 py-2 text-sm font-medium text-white shadow-sm transition hover:bg-[#c08f5e]"
+                >
+                  Sign up
+                </Link>
+              </>
+            )}
           </nav>
         </div>
       </header>
@@ -43,29 +92,58 @@ export default function HomePage() {
         <section className="mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:py-32">
           <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
             <div className="text-center lg:text-left">
-              <h1 className="font-serif text-4xl leading-tight text-gray-900 sm:text-5xl lg:text-6xl">
-                Beauty that celebrates{" "}
-                <span className="text-[#D4A373]">you</span>
-              </h1>
-              <p className="mt-6 text-lg leading-relaxed text-gray-600 sm:text-xl">
-                Join Charis Belle and receive personalized beauty tips, exclusive
-                birthday treats, and gentle reminders for your next appointment.
-                Because you deserve to feel special every day.
-              </p>
-              <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:justify-center lg:justify-start">
-                <Link
-                  href="/signup"
-                  className="rounded-full bg-[#247245] px-8 py-3.5 text-center text-base font-medium text-white shadow-lg transition hover:bg-[#1b5c36] hover:shadow-xl"
-                >
-                  Get Started — It's Free
-                </Link>
-                <Link
-                  href="#features"
-                  className="rounded-full border-2 border-[#247245] px-8 py-3.5 text-center text-base font-medium text-[#247245] transition hover:bg-[#247245]/5"
-                >
-                  Learn More
-                </Link>
-              </div>
+              {isLoggedIn ? (
+                <>
+                  <h1 className="font-serif text-4xl leading-tight text-gray-900 sm:text-5xl lg:text-6xl">
+                    Welcome back,{" "}
+                    <span className="text-[#D4A373]">{displayName}</span>
+                  </h1>
+                  <p className="mt-6 text-lg leading-relaxed text-gray-600 sm:text-xl">
+                    Great to see you again! Check your profile to update your preferences,
+                    or explore our latest offerings. We're here to help you look and feel your best.
+                  </p>
+                  <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:justify-center lg:justify-start">
+                    <Link
+                      href="/profile"
+                      className="rounded-full bg-[#247245] px-8 py-3.5 text-center text-base font-medium text-white shadow-lg transition hover:bg-[#1b5c36] hover:shadow-xl"
+                    >
+                      View My Profile
+                    </Link>
+                    <Link
+                      href="#features"
+                      className="rounded-full border-2 border-[#247245] px-8 py-3.5 text-center text-base font-medium text-[#247245] transition hover:bg-[#247245]/5"
+                    >
+                      Our Services
+                    </Link>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <h1 className="font-serif text-4xl leading-tight text-gray-900 sm:text-5xl lg:text-6xl">
+                    Beauty that celebrates{" "}
+                    <span className="text-[#D4A373]">you</span>
+                  </h1>
+                  <p className="mt-6 text-lg leading-relaxed text-gray-600 sm:text-xl">
+                    Join Charis Belle and receive personalized beauty tips, exclusive
+                    birthday treats, and gentle reminders for your next appointment.
+                    Because you deserve to feel special every day.
+                  </p>
+                  <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:justify-center lg:justify-start">
+                    <Link
+                      href="/signup"
+                      className="rounded-full bg-[#247245] px-8 py-3.5 text-center text-base font-medium text-white shadow-lg transition hover:bg-[#1b5c36] hover:shadow-xl"
+                    >
+                      Get Started — It's Free
+                    </Link>
+                    <Link
+                      href="#features"
+                      className="rounded-full border-2 border-[#247245] px-8 py-3.5 text-center text-base font-medium text-[#247245] transition hover:bg-[#247245]/5"
+                    >
+                      Learn More
+                    </Link>
+                  </div>
+                </>
+              )}
             </div>
 
             <div className="relative mx-auto w-full max-w-md lg:max-w-none">
@@ -136,18 +214,37 @@ export default function HomePage() {
         {/* CTA Section */}
         <section className="bg-[#247245] py-16 lg:py-20">
           <div className="mx-auto max-w-4xl px-4 text-center sm:px-6">
-            <h2 className="font-serif text-3xl text-white sm:text-4xl">
-              Ready to feel special?
-            </h2>
-            <p className="mt-4 text-lg text-white/80">
-              Join hundreds of happy clients who never miss a birthday treat.
-            </p>
-            <Link
-              href="/signup"
-              className="mt-8 inline-block rounded-full bg-white px-10 py-4 text-base font-medium text-[#247245] shadow-lg transition hover:bg-[#FAEDCD]"
-            >
-              Create Your Free Account
-            </Link>
+            {isLoggedIn ? (
+              <>
+                <h2 className="font-serif text-3xl text-white sm:text-4xl">
+                  Keep your profile up to date
+                </h2>
+                <p className="mt-4 text-lg text-white/80">
+                  Make sure we have your latest info so you never miss a special treat!
+                </p>
+                <Link
+                  href="/profile"
+                  className="mt-8 inline-block rounded-full bg-white px-10 py-4 text-base font-medium text-[#247245] shadow-lg transition hover:bg-[#FAEDCD]"
+                >
+                  Update My Profile
+                </Link>
+              </>
+            ) : (
+              <>
+                <h2 className="font-serif text-3xl text-white sm:text-4xl">
+                  Ready to feel special?
+                </h2>
+                <p className="mt-4 text-lg text-white/80">
+                  Join hundreds of happy clients who never miss a birthday treat.
+                </p>
+                <Link
+                  href="/signup"
+                  className="mt-8 inline-block rounded-full bg-white px-10 py-4 text-base font-medium text-[#247245] shadow-lg transition hover:bg-[#FAEDCD]"
+                >
+                  Create Your Free Account
+                </Link>
+              </>
+            )}
           </div>
         </section>
       </main>
@@ -169,12 +266,27 @@ export default function HomePage() {
               </span>
             </div>
             <div className="flex gap-6 text-sm text-gray-500">
-              <Link href="/login" className="hover:text-[#247245]">
-                Log in
-              </Link>
-              <Link href="/signup" className="hover:text-[#247245]">
-                Sign up
-              </Link>
+              {isLoggedIn ? (
+                <>
+                  <Link href="/profile" className="hover:text-[#247245]">
+                    My Profile
+                  </Link>
+                  {isAdmin && (
+                    <Link href="/admin/dashboard" className="hover:text-[#247245]">
+                      Admin
+                    </Link>
+                  )}
+                </>
+              ) : (
+                <>
+                  <Link href="/login" className="hover:text-[#247245]">
+                    Log in
+                  </Link>
+                  <Link href="/signup" className="hover:text-[#247245]">
+                    Sign up
+                  </Link>
+                </>
+              )}
             </div>
           </div>
         </div>

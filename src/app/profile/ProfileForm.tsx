@@ -1,6 +1,7 @@
 'use client'
 
 import { useActionState, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
 import { updateProfileAction, type ProfileState } from './actions'
 import { SubmitButton } from '@/components/SubmitButton'
@@ -12,24 +13,34 @@ type Profile = {
   full_name: string | null
   birth_date: string | null
   phone: string | null
+  role?: string | null
   preferences: { channel?: string; marketing_opt_in?: boolean } | null
 }
 
 export function ProfileForm({ profile }: { profile: Profile }) {
+  const router = useRouter()
   const [state, formAction] = useActionState<ProfileState, FormData>(
     updateProfileAction,
     null
   )
 
-  // Show toast notifications
+  // Show toast notifications and redirect on success
   useEffect(() => {
     if (state?.success) {
       toast.success(state.success)
+      // Redirect after a short delay
+      setTimeout(() => {
+        if (profile.role === 'admin') {
+          router.push('/admin/dashboard')
+        } else {
+          router.push('/')
+        }
+      }, 1000)
     }
     if (state?.error) {
       toast.error(state.error)
     }
-  }, [state])
+  }, [state, router, profile.role])
 
   const channel = profile.preferences?.channel ?? 'email'
   const marketingOptIn = profile.preferences?.marketing_opt_in ?? true

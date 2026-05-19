@@ -77,6 +77,7 @@ export default async function ProfilePage() {
               full_name: profile?.full_name ?? null,
               birth_date: profile?.birth_date ?? null,
               phone: profile?.phone ?? null,
+              role: profile?.role ?? null,
               preferences:
                 (profile?.preferences as {
                   channel?: string
