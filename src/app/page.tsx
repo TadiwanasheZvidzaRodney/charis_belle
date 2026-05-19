@@ -37,7 +37,7 @@ export default async function HomePage() {
               className="rounded-full shadow-sm"
               priority
             />
-            <span className="font-serif text-xl text-[#247245] tracking-wide">
+            <span className="font-serif text-base sm:text-xl text-[#247245] tracking-wide">
               Charis Belle
             </span>
           </Link>
@@ -141,12 +141,12 @@ export default async function HomePage() {
               </div>
 
               <div className="relative mx-auto w-full max-w-lg lg:max-w-none">
-                <div className="aspect-[4/5] overflow-hidden rounded-3xl bg-white shadow-2xl ring-1 ring-black/5">
+                <div className="aspect-[5.5/5] overflow-hidden rounded-3xl bg-white shadow-2xl ring-1 ring-black/5">
                   <Image
-                    src="/CharisBelleLogo.webp"
+                    src="/Charis-Belle-Logo.webp"
                     alt="Charis Belle Beauty Services"
-                    width={600}
-                    height={750}
+                    width={800}
+                    height={900}
                     className="h-full w-full object-cover"
                     priority
                   />
