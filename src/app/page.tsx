@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
+import { ContactForm } from "@/components/ContactForm";
 
 export default async function HomePage() {
   const supabase = await createClient();
@@ -511,88 +512,7 @@ export default async function HomePage() {
               </div>
 
               {/* Contact Form */}
-              <div className="rounded-2xl bg-[#FAEDCD] p-8 shadow-lg">
-                <h3 className="font-serif text-2xl text-gray-900">Send us a message</h3>
-                <form className="mt-6 space-y-4">
-                  <div>
-                    <label htmlFor="name" className="block text-sm font-medium text-gray-700">
-                      Your Name
-                    </label>
-                    <input
-                      type="text"
-                      id="name"
-                      name="name"
-                      required
-                      className="mt-1 w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-gray-900 placeholder:text-gray-400 focus:border-[#247245] focus:outline-none focus:ring-2 focus:ring-[#247245]/20"
-                      placeholder="Nyasha Charis"
-                    />
-                  </div>
-                  <div>
-                    <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-                      Email
-                    </label>
-                    <input
-                      type="email"
-                      id="email"
-                      name="email"
-                      required
-                      className="mt-1 w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-gray-900 placeholder:text-gray-400 focus:border-[#247245] focus:outline-none focus:ring-2 focus:ring-[#247245]/20"
-                      placeholder="charis@gmail.com"
-                    />
-                  </div>
-                  <div>
-                    <label htmlFor="phone" className="block text-sm font-medium text-gray-700">
-                      Phone
-                    </label>
-                    <input
-                      type="tel"
-                      id="phone"
-                      name="phone"
-                      className="mt-1 w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-gray-900 placeholder:text-gray-400 focus:border-[#247245] focus:outline-none focus:ring-2 focus:ring-[#247245]/20"
-                      placeholder="+263 71 922 7377"
-                    />
-                  </div>
-                  <div>
-                    <label htmlFor="service" className="block text-sm font-medium text-gray-700">
-                      Service Interested In
-                    </label>
-                    <select
-                      id="service"
-                      name="service"
-                      className="mt-1 w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-gray-900 focus:border-[#247245] focus:outline-none focus:ring-2 focus:ring-[#247245]/20"
-                    >
-                      <option value="">Select a service</option>
-                      <option value="acrylic-nails">Acrylic Nails</option>
-                      <option value="gel-manicure">Gel Manicure</option>
-                      <option value="nail-art">Nail Art & Designs</option>
-                      <option value="pedicure">Pedicure</option>
-                      <option value="full-glam-makeup">Full Glam Makeup</option>
-                      <option value="bridal-makeup">Bridal Makeup</option>
-                      <option value="soft-glam-makeup">Soft Glam / Natural Makeup</option>
-                      <option value="lash-extensions">Lash Extensions</option>
-                      <option value="other">Other</option>
-                    </select>
-                  </div>
-                  <div>
-                    <label htmlFor="message" className="block text-sm font-medium text-gray-700">
-                      Message
-                    </label>
-                    <textarea
-                      id="message"
-                      name="message"
-                      rows={4}
-                      className="mt-1 w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-gray-900 placeholder:text-gray-400 focus:border-[#247245] focus:outline-none focus:ring-2 focus:ring-[#247245]/20"
-                      placeholder="Tell us about your preferred date/time or any questions..."
-                    />
-                  </div>
-                  <button
-                    type="submit"
-                    className="w-full rounded-full bg-[#247245] px-6 py-4 text-base font-medium text-white shadow-lg transition hover:bg-[#1b5c36]"
-                  >
-                    Send Message
-                  </button>
-                </form>
-              </div>
+              <ContactForm />
             </div>
           </div>
         </section>
