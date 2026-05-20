@@ -464,33 +464,49 @@ export default async function HomePage() {
                 </div>
 
                 <div className="mt-8 flex gap-4">
-                  <a
+                    <a
                     href="https://instagram.com/charis_belle_expert/"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex h-10 w-10 items-center justify-center rounded-full bg-gray-100 text-gray-600 transition hover:bg-[#247245] hover:text-white"
-                  >
+                    >
                     <span className="sr-only">Instagram</span>
-                    📸
-                  </a>
-                  <a
+                    <svg width="22" height="22" fill="none" viewBox="0 0 24 24" aria-hidden="true">
+                      <rect width="18" height="18" x="3" y="3" rx="5" stroke="currentColor" strokeWidth="2"/>
+                      <circle cx="12" cy="12" r="4" stroke="currentColor" strokeWidth="2"/>
+                      <circle cx="17" cy="7" r="1.2" fill="currentColor"/>
+                    </svg>
+                    </a>
+                    <a
                     href="https://facebook.com"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex h-10 w-10 items-center justify-center rounded-full bg-gray-100 text-gray-600 transition hover:bg-[#247245] hover:text-white"
-                  >
+                    >
                     <span className="sr-only">Facebook</span>
-                    📘
-                  </a>
-                  <a
+                    <svg width="22" height="22" fill="none" viewBox="0 0 24 24" aria-hidden="true">
+                      <path
+                      d="M17 2.5h-2.5A4.5 4.5 0 0 0 10 7v2H7.5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5H10v7a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-7h2.1a.5.5 0 0 0 .5-.5l.2-3a.5.5 0 0 0-.5-.5H14V7a1.5 1.5 0 0 1 1.5-1.5H17a.5.5 0 0 0 .5-.5v-2a.5.5 0 0 0-.5-.5Z"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      fill="none"
+                      />
+                    </svg>
+                    </a>
+                    <a
                     href="https://wa.me/263719227377"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex h-10 w-10 items-center justify-center rounded-full bg-gray-100 text-gray-600 transition hover:bg-[#247245] hover:text-white"
-                  >
+                    >
                     <span className="sr-only">WhatsApp</span>
-                    💬
-                  </a>
+                    <svg width="22" height="22" fill="none" viewBox="0 0 24 24" aria-hidden="true">
+                      <path
+                      d="M20.52 3.48A11.93 11.93 0 0 0 12 0C5.37 0 0 5.37 0 12c0 2.12.55 4.17 1.6 5.98L0 24l6.19-1.62A11.95 11.95 0 0 0 12 24c6.63 0 12-5.37 12-12 0-3.19-1.24-6.19-3.48-8.52ZM12 22c-1.77 0-3.5-.46-5.01-1.33l-.36-.21-3.68.96.98-3.59-.23-.37A9.93 9.93 0 0 1 2 12c0-5.52 4.48-10 10-10s10 4.48 10 10-4.48 10-10 10Zm5.2-7.6c-.29-.15-1.7-.84-1.96-.94-.26-.1-.45-.15-.64.15-.19.29-.74.94-.91 1.13-.17.19-.34.21-.63.07-.29-.15-1.23-.45-2.34-1.43-.86-.77-1.44-1.72-1.61-2.01-.17-.29-.02-.45.13-.6.13-.13.29-.34.43-.51.14-.17.19-.29.29-.48.1-.19.05-.36-.02-.51-.07-.15-.64-1.54-.88-2.11-.23-.56-.47-.48-.64-.49-.16-.01-.36-.01-.56-.01-.19 0-.5.07-.76.36-.26.29-1 1-.99 2.43.01 1.43 1.03 2.81 1.18 3.01.15.19 2.03 3.1 4.93 4.23.69.3 1.23.48 1.65.61.69.22 1.32.19 1.81.12.55-.08 1.7-.7 1.94-1.38.24-.68.24-1.26.17-1.38-.07-.12-.26-.19-.55-.34Z"
+                      fill="currentColor"
+                      />
+                    </svg>
+                    </a>
                 </div>
               </div>
 
